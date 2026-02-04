@@ -12,7 +12,16 @@ const createApolloClient = (baseUrl?: string) => {
       uri,
       useGETForQueries: true
     }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'cache-first',
+        nextFetchPolicy: 'cache-first'
+      },
+      query: {
+        fetchPolicy: 'cache-first'
+      }
+    }
   })
 }
 
@@ -23,7 +32,11 @@ export const initializeApollo = (
   const _apolloClient = apolloClient ?? createApolloClient(baseUrl)
 
   if (initialState) {
-    _apolloClient.cache.restore(initialState)
+    const existingCache = _apolloClient.cache.extract()
+    _apolloClient.cache.restore({
+      ...existingCache,
+      ...initialState
+    })
   }
 
   if (typeof window === 'undefined') {
