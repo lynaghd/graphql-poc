@@ -1,0 +1,74 @@
+{
+    "resourceType": "Organization",
+    "id": "91e59edd-9c53-4ca8-b365-81fdbd3b61ab",
+    "meta": {
+        "lastUpdated": "2025-10-28T22:24:54.292080405Z",
+        "source": "https://api.service.nhs.uk/organisation-data-terminology-api/fhir/Organization/D2L2R",
+        "profile": [
+            "https://fhir.hl7.org.uk/StructureDefinition/UKCore-Organization",
+            "https://fhir.nhs.uk/England/StructureDefinition/England-Organization-ODS"
+        ],
+        "versionId": "1"
+    },
+    "identifier": [
+        {
+            "use": "official",
+            "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+            "value": "D2L2R"
+        },
+        {
+            "system": "https://fhir.nhs.uk/Id/accredited-system-id",
+            "value": "200000002606",
+            "assigner": {
+                "display": "NHS Digital"
+            }
+        }
+    ],
+    "active": true,
+    "type": [
+        {
+            "coding": [
+                {
+                    "system": "https://fhir.hl7.org.uk/ValueSet/UKCore-OrganizationType",
+                    "code": "prov",
+                    "display": "Healthcare Provider"
+                }
+            ]
+        }
+    ],
+    "name": "NHS Online NHS Trust",
+    "address": [
+        {
+            "extension": [
+                {
+                    "url": "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-AddressKey",
+                    "extension": [
+                        {
+                            "url": "type",
+                            "valueCodeableConcept": {
+                                "coding": [
+                                    {
+                                        "system": "https://fhir.hl7.org.uk/CodeSystem/UKCore-AddressKeyType",
+                                        "code": "UPRN",
+                                        "display": "Unique Property Reference Number"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "url": "value",
+                            "valueString": "72766088"
+                        }
+                    ]
+                }
+            ],
+            "line": [
+                "THE LEEDS GOVERNMENT HUB",
+                "7-8 WELLINGTON PLACE"
+            ],
+            "city": "LEEDS",
+            "postalCode": "LS1 4AP",
+            "country": "ENGLAND"
+        }
+    ]
+}
