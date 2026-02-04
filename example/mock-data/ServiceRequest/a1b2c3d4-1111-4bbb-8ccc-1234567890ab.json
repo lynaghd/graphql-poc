@@ -83,7 +83,7 @@
       "display": "Dermatology Service"
     },
     {
-      "reference": "Practitioner/91e59edd-9c53-4ca8-b365-81fdbd3b61ab" // once assigned to a name individual
+      "reference": "Practitioner/91e59edd-9c53-4ca8-b365-81fdbd3b61ab"
     }
   ],
   "note": [

@@ -11,9 +11,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const documents = await listResourceJson<any>('DocumentReference')
-    const filtered = documents.filter((doc) =>
-      (doc.basedOn ?? []).some((reference: { reference: string }) => reference.reference === `ServiceRequest/${basedOn}`)
-    )
+    const matchesBasedOn = (doc: any) =>
+      (doc.basedOn ?? []).some(
+        (reference: { reference: string }) => reference.reference === `ServiceRequest/${basedOn}`
+      )
+
+    const matchesContext = (doc: any) =>
+      (doc.context?.related ?? []).some(
+        (reference: { reference: string }) => reference.reference === `ServiceRequest/${basedOn}`
+      )
+
+    const filtered = documents.filter((doc) => matchesBasedOn(doc) || matchesContext(doc))
 
     res.status(200).json({
       resourceType: 'Bundle',

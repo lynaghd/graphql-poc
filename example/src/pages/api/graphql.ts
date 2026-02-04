@@ -40,19 +40,134 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     patients: async (_parent: unknown, _args: unknown, context: { baseUrl: string }) => {
-      const response = await fetch(`${context.baseUrl}/api/mock/patients`)
-      return response.json()
+      const response = await fetch(`${context.baseUrl}/api/mock/Patient`)
+      const bundle = await response.json()
+
+      const buildPatientName = (resource: any) => {
+        const name = resource.name?.[0]
+        if (!name) {
+          return 'Unknown'
+        }
+
+        const parts = [
+          ...(name.prefix ?? []),
+          ...(name.given ?? []),
+          ...(name.family ? [name.family] : [])
+        ].filter(Boolean)
+
+        return parts.length > 0 ? parts.join(' ') : name.text ?? 'Unknown'
+      }
+      const resolveOrganizationName = async (reference?: string) => {
+        if (!reference || !reference.startsWith('Organization/')) {
+          return undefined
+        }
+
+        const id = reference.replace('Organization/', '')
+        const orgResponse = await fetch(`${context.baseUrl}/api/mock/Organization/${id}.json`)
+        if (!orgResponse.ok) {
+          return undefined
+        }
+
+        const organization = await orgResponse.json()
+        return organization.name as string | undefined
+      }
+
+      return Promise.all(
+        (bundle.entry ?? []).map(async (entry: any) => {
+          const resource = entry.resource
+          const gpPractice =
+            (await resolveOrganizationName(resource.managingOrganization?.reference)) ??
+            resource.managingOrganization?.identifier?.value
+
+          return {
+            id: resource.id,
+            name: buildPatientName(resource),
+            nhsNumber: resource.identifier?.[0]?.value,
+            dateOfBirth: resource.birthDate,
+            gpPractice: gpPractice ?? 'Unknown',
+            referrals: []
+          }
+        })
+      )
     },
     patient: async (
       _parent: unknown,
       args: { id: string },
       context: { baseUrl: string }
     ) => {
-      const response = await fetch(`${context.baseUrl}/api/mock/patients/${args.id}`)
+      const response = await fetch(`${context.baseUrl}/api/mock/Patient/${args.id}`)
       if (!response.ok) {
         return null
       }
-      return response.json()
+      const patient = await response.json()
+      const resolveOrganizationName = async (reference?: string) => {
+        if (!reference || !reference.startsWith('Organization/')) {
+          return undefined
+        }
+
+        const id = reference.replace('Organization/', '')
+        const orgResponse = await fetch(`${context.baseUrl}/api/mock/Organization/${id}`)
+        if (!orgResponse.ok) {
+          return undefined
+        }
+
+        const organization = await orgResponse.json()
+        return organization.name as string | undefined
+      }
+      const buildPatientName = (resource: any) => {
+        const name = resource.name?.[0]
+        if (!name) {
+          return 'Unknown'
+        }
+
+        const parts = [
+          ...(name.prefix ?? []),
+          ...(name.given ?? []),
+          ...(name.family ? [name.family] : [])
+        ].filter(Boolean)
+
+        return parts.length > 0 ? parts.join(' ') : name.text ?? 'Unknown'
+      }
+      const referralsResponse = await fetch(
+        `${context.baseUrl}/api/mock/ServiceRequest?patient=${args.id}`
+      )
+
+      const referralsBundle = referralsResponse.ok ? await referralsResponse.json() : { entry: [] }
+      const referrals = await Promise.all(
+        (referralsBundle.entry ?? []).map(async (entry: any) => {
+          const referral = entry.resource
+          const documentsResponse = await fetch(
+            `${context.baseUrl}/api/mock/DocumentReference?based-on=${referral.id}`
+          )
+          const documentsBundle = documentsResponse.ok ? await documentsResponse.json() : { entry: [] }
+          const documents = (documentsBundle.entry ?? []).map((docEntry: any) => ({
+            id: docEntry.resource.id,
+            title: docEntry.resource.content?.[0]?.attachment?.title ?? 'Document'
+          }))
+
+          return {
+            id: referral.id,
+            title: referral.code?.text ?? referral.code?.coding?.[0]?.display ?? 'Referral',
+            status: referral.status ?? 'unknown',
+            receivedAt: referral.authoredOn ?? 'unknown',
+            documentCount: documents.length,
+            documents
+          }
+        })
+      )
+
+      const gpPractice =
+        (await resolveOrganizationName(patient.managingOrganization?.reference)) ??
+        patient.managingOrganization?.identifier?.value
+
+      return {
+        id: patient.id,
+        name: buildPatientName(patient),
+        nhsNumber: patient.identifier?.[0]?.value,
+        dateOfBirth: patient.birthDate,
+        gpPractice: gpPractice ?? 'Unknown',
+        referrals
+      }
     },
     referralDocuments: async (
       _parent: unknown,
@@ -60,19 +175,46 @@ const resolvers = {
       context: { baseUrl: string }
     ) => {
       const response = await fetch(
-        `${context.baseUrl}/api/mock/patients/${args.patientId}/referrals/${args.referralId}/documents`
+        `${context.baseUrl}/api/mock/DocumentReference?based-on=${args.referralId}`
       )
 
       if (!response.ok) {
         return []
       }
 
-      return response.json()
-    }
-  },
-  Referral: {
-    documentCount: (referral: { documents?: unknown[] }) => {
-      return referral.documents?.length ?? 0
+      const bundle = await response.json()
+      const resolveOrganizationName = async (reference?: string) => {
+        if (!reference || !reference.startsWith('Organization/')) {
+          return undefined
+        }
+
+        const id = reference.replace('Organization/', '')
+        const orgResponse = await fetch(`${context.baseUrl}/api/mock/Organization/${id}`)
+        if (!orgResponse.ok) {
+          return undefined
+        }
+
+        const organization = await orgResponse.json()
+        return organization.name as string | undefined
+      }
+
+      return Promise.all(
+        (bundle.entry ?? []).map(async (entry: any) => {
+          const resource = entry.resource
+          const organizationReference =
+            resource.custodian?.reference ?? resource.authenticator?.reference ?? resource.author?.[0]?.reference
+          const uploadedBy = await resolveOrganizationName(organizationReference)
+
+          return {
+            id: resource.id,
+            title: resource.content?.[0]?.attachment?.title ?? 'Document',
+            type: resource.content?.[0]?.attachment?.contentType ?? 'Unknown',
+            sizeKb: resource.content?.[0]?.attachment?.size,
+            createdAt: resource.date,
+            uploadedBy
+          }
+        })
+      )
     }
   }
 }
