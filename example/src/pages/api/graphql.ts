@@ -63,7 +63,7 @@ const resolvers = {
         }
 
         const id = reference.replace('Organization/', '')
-        const orgResponse = await fetch(`${context.baseUrl}/api/mock/Organization/${id}.json`)
+        const orgResponse = await fetch(`${context.baseUrl}/api/mock/Organization/${id}`)
         if (!orgResponse.ok) {
           return undefined
         }
@@ -136,14 +136,17 @@ const resolvers = {
       const referrals = await Promise.all(
         (referralsBundle.entry ?? []).map(async (entry: any) => {
           const referral = entry.resource
-          const documentsResponse = await fetch(
-            `${context.baseUrl}/api/mock/DocumentReference?based-on=${referral.id}`
-          )
-          const documentsBundle = documentsResponse.ok ? await documentsResponse.json() : { entry: [] }
-          const documents = (documentsBundle.entry ?? []).map((docEntry: any) => ({
-            id: docEntry.resource.id,
-            title: docEntry.resource.content?.[0]?.attachment?.title ?? 'Document'
-          }))
+          const documents = (referral.supportingInfo ?? []).map((info: any) => {
+            const reference = info.reference as string
+            const id = reference?.startsWith('DocumentReference/')
+              ? reference.replace('DocumentReference/', '')
+              : reference
+
+            return {
+              id,
+              title: id ?? 'Document'
+            }
+          })
 
           return {
             id: referral.id,
@@ -174,15 +177,18 @@ const resolvers = {
       args: { patientId: string; referralId: string },
       context: { baseUrl: string }
     ) => {
-      const response = await fetch(
-        `${context.baseUrl}/api/mock/DocumentReference?based-on=${args.referralId}`
+      const serviceRequestResponse = await fetch(
+        `${context.baseUrl}/api/mock/ServiceRequest/${args.referralId}`
       )
 
-      if (!response.ok) {
+      if (!serviceRequestResponse.ok) {
         return []
       }
 
-      const bundle = await response.json()
+      const serviceRequest = await serviceRequestResponse.json()
+      const documentReferences = (serviceRequest.supportingInfo ?? [])
+        .map((info: any) => info.reference as string)
+        .filter(Boolean)
       const resolveOrganizationName = async (reference?: string) => {
         if (!reference || !reference.startsWith('Organization/')) {
           return undefined
@@ -199,8 +205,20 @@ const resolvers = {
       }
 
       return Promise.all(
-        (bundle.entry ?? []).map(async (entry: any) => {
-          const resource = entry.resource
+        documentReferences.map(async (reference: string) => {
+          const id = reference.startsWith('DocumentReference/')
+            ? reference.replace('DocumentReference/', '')
+            : reference
+
+          const documentResponse = await fetch(
+            `${context.baseUrl}/api/mock/DocumentReference/${id}`
+          )
+
+          if (!documentResponse.ok) {
+            return null
+          }
+
+          const resource = await documentResponse.json()
           const organizationReference =
             resource.custodian?.reference ?? resource.authenticator?.reference ?? resource.author?.[0]?.reference
           const uploadedBy = await resolveOrganizationName(organizationReference)
@@ -214,7 +232,7 @@ const resolvers = {
             uploadedBy
           }
         })
-      )
+      ).then((documents) => documents.filter(Boolean))
     }
   }
 }
