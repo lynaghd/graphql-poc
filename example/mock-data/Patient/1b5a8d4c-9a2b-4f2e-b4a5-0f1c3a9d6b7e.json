@@ -1,0 +1,67 @@
+{
+  "resourceType": "Patient",
+  "id": "1b5a8d4c-9a2b-4f2e-b4a5-0f1c3a9d6b7e",
+  "identifier": [
+    {
+      "system": "https://fhir.nhs.uk/Id/nhs-number",
+      "value": "9000000009",
+      "extension": [
+        {
+          "url": "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-NHSNumberVerificationStatus",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "https://fhir.hl7.org.uk/CodeSystem/UKCore-NHSNumberVerificationStatus",
+                "version": "1.0.0",
+                "code": "01",
+                "display": "Number present and verified"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2026-01-01T00:00:00.000000000Z",
+    "profile": ["http://hl7.org/fhir/StructureDefinition/Patient"],
+    "versionId": "1"
+  },
+  "name": [
+    {
+      "given": [
+        "Jane"
+      ],
+      "family": "Smith",
+      "prefix": [
+        "Mrs"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1992-11-02",
+  "generalPractitioner": [
+    {
+      "id": "254406A3",
+      "type": "Organization",
+      "identifier": {
+        "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+        "value": "Y12345",
+        "period": {
+          "start": "2024-01-01",
+          "end": "2025-12-31"
+        }
+      }
+    }
+  ],
+  "managingOrganization": {
+    "type": "Organization",
+    "identifier": {
+      "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+      "value": "Y12345",
+      "period": {
+        "start": "2024-01-01"
+      }
+    }
+  }
+}

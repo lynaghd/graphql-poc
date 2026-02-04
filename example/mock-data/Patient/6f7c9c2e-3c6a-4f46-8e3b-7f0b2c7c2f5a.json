@@ -1,0 +1,67 @@
+{
+  "resourceType": "Patient",
+  "id": "6f7c9c2e-3c6a-4f46-8e3b-7f0b2c7c2f5a",
+  "identifier": [
+    {
+      "system": "https://fhir.nhs.uk/Id/nhs-number",
+      "value": "9434765919",
+      "extension": [
+        {
+          "url": "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-NHSNumberVerificationStatus",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "https://fhir.hl7.org.uk/CodeSystem/UKCore-NHSNumberVerificationStatus",
+                "version": "1.0.0",
+                "code": "01",
+                "display": "Number present and verified"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2026-01-01T00:00:00.000000000Z",
+    "profile": ["http://hl7.org/fhir/StructureDefinition/Patient"],
+    "versionId": "1"
+  },
+  "name": [
+    {
+      "given": [
+        "Alex"
+      ],
+      "family": "Morgan",
+      "prefix": [
+        "Mr"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1984-03-14",
+  "generalPractitioner": [
+    {
+      "id": "254406A1",
+      "type": "Organization",
+      "identifier": {
+        "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+        "value": "Y12345",
+        "period": {
+          "start": "2024-01-01",
+          "end": "2025-12-31"
+        }
+      }
+    }
+  ],
+  "managingOrganization": {
+    "type": "Organization",
+    "identifier": {
+      "system": "https://fhir.nhs.uk/Id/ods-organization-code",
+      "value": "Y12345",
+      "period": {
+        "start": "2024-01-01"
+      }
+    }
+  }
+}
