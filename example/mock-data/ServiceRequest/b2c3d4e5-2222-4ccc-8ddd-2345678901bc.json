@@ -66,6 +66,11 @@
       }
     ]
   },
+  "supportingInfo": [
+    {
+      "reference": "DocumentReference/0718293a-7777-4bbb-8ccc-7890123456a1"
+    }
+  ],
   "subject": {
     "reference": "Patient/6f7c9c2e-3c6a-4f46-8e3b-7f0b2c7c2f5a"
   },
