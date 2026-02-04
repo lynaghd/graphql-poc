@@ -4,6 +4,8 @@ import { listResourceJson } from '../../../../lib/mockData'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const basedOn = req.query['based-on'] as string
 
+  console.log(`GET /api/mock/DocumentReference?based-on=${basedOn ?? ''}`)
+
   if (!basedOn) {
     res.status(400).json({ message: 'Missing based-on query parameter' })
     return

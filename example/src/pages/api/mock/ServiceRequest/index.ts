@@ -4,6 +4,8 @@ import { listResourceJson } from '../../../../lib/mockData'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const patientId = req.query.patient as string
 
+  console.log(`GET /api/mock/ServiceRequest?patient=${patientId ?? ''}`)
+
   if (!patientId) {
     res.status(400).json({ message: 'Missing patient query parameter' })
     return
