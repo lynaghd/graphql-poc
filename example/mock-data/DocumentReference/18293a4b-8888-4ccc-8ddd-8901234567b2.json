@@ -1,0 +1,63 @@
+{
+  "resourceType": "DocumentReference",
+  "id": "18293a4b-8888-4ccc-8ddd-8901234567b2",
+  "meta": {
+    "lastUpdated": "2025-11-28T09:10:00.000000000Z",
+    "profile": [
+      "https://fhir.hl7.org.uk/StructureDefinition/UKCore-DocumentReference"
+    ],
+    "versionId": "1"
+  },
+  "extension": [
+    {
+      "url": "https://fhir.nhs.uk/StructureDefinition/Extension-Document-ReadReceipt",
+      "valueCode": "Read"
+    }
+  ],
+  "status": "current",
+  "docStatus": "final",
+  "type": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "75492-9",
+        "display": "Headache diary"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/1b5a8d4c-9a2b-4f2e-b4a5-0f1c3a9d6b7e"
+  },
+  "date": "2025-11-28T09:10:00+00:00",
+  "author": [
+    {
+      "reference": "Practitioner/2fcfa7ec-2e32-4b84-8653-4f35afa4af7f"
+    }
+  ],
+  "authenticator": {
+    "reference": "Organization/91e59edd-9c53-4ca8-b365-81fdbd3b61ab"
+  },
+  "custodian": {
+    "reference": "Organization/91e59edd-9c53-4ca8-b365-81fdbd3b61ab"
+  },
+  "description": "Headache diary",
+  "content": [
+    {
+      "attachment": {
+        "contentType": "application/pdf",
+        "url": "https://s3.eu-west-2.amazonaws.com/vh-docs-prod/letters/18293a4b-8888-4ccc-8ddd-8901234567b2.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=REDACTED&X-Amz-Date=20251128T091000Z&X-Amz-Expires=3600&X-Amz-Signature=REDACTED&X-Amz-SignedHeaders=host",
+        "title": "Headache Diary",
+        "creation": "2025-11-28T09:10:00+00:00",
+        "size": 120,
+        "hash": "qUqP5cyxm6YcTAhz05Hph5gvu9M="
+      }
+    }
+  ],
+  "context": {
+    "related": [
+      {
+        "reference": "ServiceRequest/c3d4e5f6-3333-4ddd-8eee-3456789012cd"
+      }
+    ]
+  }
+}

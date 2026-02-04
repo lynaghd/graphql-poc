@@ -1,0 +1,63 @@
+{
+  "resourceType": "DocumentReference",
+  "id": "e5f60718-5555-4fff-8aaa-5678901234ef",
+  "meta": {
+    "lastUpdated": "2025-11-09T10:15:00.000000000Z",
+    "profile": [
+      "https://fhir.hl7.org.uk/StructureDefinition/UKCore-DocumentReference"
+    ],
+    "versionId": "1"
+  },
+  "extension": [
+    {
+      "url": "https://fhir.nhs.uk/StructureDefinition/Extension-Document-ReadReceipt",
+      "valueCode": "Read"
+    }
+  ],
+  "status": "current",
+  "docStatus": "final",
+  "type": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "56446-8",
+        "display": "Referral letter"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/6f7c9c2e-3c6a-4f46-8e3b-7f0b2c7c2f5a"
+  },
+  "date": "2025-11-09T10:15:00+00:00",
+  "author": [
+    {
+      "reference": "Practitioner/2fcfa7ec-2e32-4b84-8653-4f35afa4af7f"
+    }
+  ],
+  "authenticator": {
+    "reference": "Organization/91e59edd-9c53-4ca8-b365-81fdbd3b61ab"
+  },
+  "custodian": {
+    "reference": "Organization/91e59edd-9c53-4ca8-b365-81fdbd3b61ab"
+  },
+  "description": "Referral letter",
+  "content": [
+    {
+      "attachment": {
+        "contentType": "application/pdf",
+        "url": "https://s3.eu-west-2.amazonaws.com/vh-docs-prod/letters/e5f60718-5555-4fff-8aaa-5678901234ef.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=REDACTED&X-Amz-Date=20251109T101500Z&X-Amz-Expires=3600&X-Amz-Signature=REDACTED&X-Amz-SignedHeaders=host",
+        "title": "Referral Letter",
+        "creation": "2025-11-09T10:15:00+00:00",
+        "size": 220,
+        "hash": "qUqP5cyxm6YcTAhz05Hph5gvu9M="
+      }
+    }
+  ],
+  "context": {
+    "related": [
+      {
+        "reference": "ServiceRequest/a1b2c3d4-1111-4bbb-8ccc-1234567890ab"
+      }
+    ]
+  }
+}

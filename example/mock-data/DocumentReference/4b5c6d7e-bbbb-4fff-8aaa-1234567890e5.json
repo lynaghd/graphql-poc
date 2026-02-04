@@ -1,0 +1,63 @@
+{
+  "resourceType": "DocumentReference",
+  "id": "4b5c6d7e-bbbb-4fff-8aaa-1234567890e5",
+  "meta": {
+    "lastUpdated": "2025-09-13T09:20:00.000000000Z",
+    "profile": [
+      "https://fhir.hl7.org.uk/StructureDefinition/UKCore-DocumentReference"
+    ],
+    "versionId": "1"
+  },
+  "extension": [
+    {
+      "url": "https://fhir.nhs.uk/StructureDefinition/Extension-Document-ReadReceipt",
+      "valueCode": "Read"
+    }
+  ],
+  "status": "current",
+  "docStatus": "final",
+  "type": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "10160-0",
+        "display": "Medication list"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/c9b2f6a1-5d2c-4a7d-9e6b-8f1a2c3d4e5f"
+  },
+  "date": "2025-09-13T09:20:00+00:00",
+  "author": [
+    {
+      "reference": "Practitioner/2fcfa7ec-2e32-4b84-8653-4f35afa4af7f"
+    }
+  ],
+  "authenticator": {
+    "reference": "Organization/91e59edd-9c53-4ca8-b365-81fdbd3b61ab"
+  },
+  "custodian": {
+    "reference": "Organization/91e59edd-9c53-4ca8-b365-81fdbd3b61ab"
+  },
+  "description": "Medication list",
+  "content": [
+    {
+      "attachment": {
+        "contentType": "application/pdf",
+        "url": "https://s3.eu-west-2.amazonaws.com/vh-docs-prod/letters/4b5c6d7e-bbbb-4fff-8aaa-1234567890e5.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=REDACTED&X-Amz-Date=20250913T092000Z&X-Amz-Expires=3600&X-Amz-Signature=REDACTED&X-Amz-SignedHeaders=host",
+        "title": "Medication List",
+        "creation": "2025-09-13T09:20:00+00:00",
+        "size": 140,
+        "hash": "qUqP5cyxm6YcTAhz05Hph5gvu9M="
+      }
+    }
+  ],
+  "context": {
+    "related": [
+      {
+        "reference": "ServiceRequest/d4e5f607-4444-4eee-8fff-4567890123de"
+      }
+    ]
+  }
+}
