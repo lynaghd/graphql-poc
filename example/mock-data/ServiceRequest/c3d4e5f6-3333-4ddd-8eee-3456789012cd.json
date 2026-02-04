@@ -1,0 +1,94 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "c3d4e5f6-3333-4ddd-8eee-3456789012cd",
+  "meta": {
+    "lastUpdated": "2025-12-01T14:45:12.000000000Z",
+    "profile": [
+      "https://fhir.hl7.org.uk/StructureDefinition/UKCore-ServiceRequest"
+    ],
+    "versionId": "1"
+  },
+  "extension": [
+    {
+      "url": "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-SourceOfServiceRequest",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "2021000124102",
+            "display": "Referred by primary care physician"
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://fhir.nhs.uk/StructureDefinition/Extension-eRS-ServiceRequest-State",
+      "extension": [
+        {
+          "url": "state",
+          "valueCoding": {
+            "system": "https://fhir.nhs.uk/CodeSystem/eRS-ReferralState",
+            "code": "TRIAGED_PROVIDER_TO_ACTION"
+          }
+        }
+      ]
+    }
+  ],
+  "identifier": [
+    {
+      "system": "https://fhir.nhs.uk/Id/UBRN",
+      "value": "333333333333"
+    }
+  ],
+  "basedOn": [
+    {
+      "reference": "CarePlan/1f2a3b4c-5d6e-4f70-8a9b-555555555555"
+    }
+  ],
+  "status": "active",
+  "intent": "order",
+  "category": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "400",
+        "display": "Neurology"
+      }
+    ]
+  },
+  "prioity": "routine",
+  "code": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "400",
+        "display": "Neurology"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/1b5a8d4c-9a2b-4f2e-b4a5-0f1c3a9d6b7e"
+  },
+  "authoredOn": "2025-12-01T09:00:00+00:00",
+  "requester": {
+    "reference": "https://api.service.nhs.uk/organisation-data-terminology-api/fhir/Organization/E85719"
+  },
+  "performer": [
+    {
+      "reference": "Organization/8b9c0d11-2e3f-4a5b-9c6d-666666666666",
+      "display": "NHS Neuro Trust"
+    },
+    {
+      "reference": "HealthcareService/9c0d1e22-3f4a-5b6c-9d7e-777777777777",
+      "display": "Neurology Service"
+    },
+    {
+      "reference": "Practitioner/0d1e2f33-4a5b-6c7d-9e8f-888888888888"
+    }
+  ],
+  "note": [
+    {
+      "text": "Patient reports recurring migraines."
+    }
+  ]
+}

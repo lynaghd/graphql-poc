@@ -1,0 +1,94 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "a1b2c3d4-1111-4bbb-8ccc-1234567890ab",
+  "meta": {
+    "lastUpdated": "2025-11-11T11:07:01.292080405Z",
+    "profile": [
+      "https://fhir.hl7.org.uk/StructureDefinition/UKCore-ServiceRequest"
+    ],
+    "versionId": "1"
+  },
+  "extension": [
+    {
+      "url": "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-SourceOfServiceRequest",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "2021000124102",
+            "display": "Referred by primary care physician"
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://fhir.nhs.uk/StructureDefinition/Extension-eRS-ServiceRequest-State",
+      "extension": [
+        {
+          "url": "state",
+          "valueCoding": {
+            "system": "https://fhir.nhs.uk/CodeSystem/eRS-ReferralState",
+            "code": "TRIAGED_PROVIDER_TO_ACTION"
+          }
+        }
+      ]
+    }
+  ],
+  "identifier": [
+    {
+      "system": "https://fhir.nhs.uk/Id/UBRN",
+      "value": "111111111111"
+    }
+  ],
+  "basedOn": [
+    {
+      "reference": "CarePlan/U828abdc6-0a11-47d5-bf52-10040386deb5"
+    }
+  ],
+  "status": "active",
+  "intent": "order",
+  "category": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "330",
+        "display": "Dermatology"
+      }
+    ]
+  },
+  "prioity": "routine",
+  "code": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "330",
+        "display": "Dermatology"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/6f7c9c2e-3c6a-4f46-8e3b-7f0b2c7c2f5a"
+  },
+  "authoredOn": "2025-10-01T09:26:12+00:00",
+  "requester": {
+    "reference": "https://api.service.nhs.uk/organisation-data-terminology-api/fhir/Organization/E85719"
+  },
+  "performer": [
+    {
+      "reference": "Organization/91e59edd-9c53-4ca8-b365-81fdbd3b61ab",
+      "display": "NHS Online NHS Trust"
+    },
+    {
+      "reference": "HealthcareService/90c0018a-e4b8-4d04-a490-8635c96329ff",
+      "display": "Dermatology Service"
+    },
+    {
+      "reference": "Practitioner/91e59edd-9c53-4ca8-b365-81fdbd3b61ab" // once assigned to a name individual
+    }
+  ],
+  "note": [
+    {
+      "text": "Patient is immunocompromised — process urgently."
+    }
+  ]
+}

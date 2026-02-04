@@ -1,0 +1,94 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "b2c3d4e5-2222-4ccc-8ddd-2345678901bc",
+  "meta": {
+    "lastUpdated": "2025-10-04T08:12:30.000000000Z",
+    "profile": [
+      "https://fhir.hl7.org.uk/StructureDefinition/UKCore-ServiceRequest"
+    ],
+    "versionId": "1"
+  },
+  "extension": [
+    {
+      "url": "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-SourceOfServiceRequest",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "2021000124102",
+            "display": "Referred by primary care physician"
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://fhir.nhs.uk/StructureDefinition/Extension-eRS-ServiceRequest-State",
+      "extension": [
+        {
+          "url": "state",
+          "valueCoding": {
+            "system": "https://fhir.nhs.uk/CodeSystem/eRS-ReferralState",
+            "code": "TRIAGED_PROVIDER_TO_ACTION"
+          }
+        }
+      ]
+    }
+  ],
+  "identifier": [
+    {
+      "system": "https://fhir.nhs.uk/Id/UBRN",
+      "value": "222222222222"
+    }
+  ],
+  "basedOn": [
+    {
+      "reference": "CarePlan/99b1f5e1-7c12-4f1c-9d68-4c9c6e111111"
+    }
+  ],
+  "status": "active",
+  "intent": "order",
+  "category": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "340",
+        "display": "Respiratory medicine"
+      }
+    ]
+  },
+  "prioity": "routine",
+  "code": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "340",
+        "display": "Respiratory medicine"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/6f7c9c2e-3c6a-4f46-8e3b-7f0b2c7c2f5a"
+  },
+  "authoredOn": "2025-10-03T10:15:00+00:00",
+  "requester": {
+    "reference": "https://api.service.nhs.uk/organisation-data-terminology-api/fhir/Organization/E85719"
+  },
+  "performer": [
+    {
+      "reference": "Organization/4f5a0c12-8a9b-4d2e-9f3a-222222222222",
+      "display": "NHS Respiratory Trust"
+    },
+    {
+      "reference": "HealthcareService/6f8b1a22-5d77-4db0-9e6a-333333333333",
+      "display": "Respiratory Service"
+    },
+    {
+      "reference": "Practitioner/7a8b9c10-1d2e-4f3a-9b4c-444444444444"
+    }
+  ],
+  "note": [
+    {
+      "text": "Follow-up required after recent test results."
+    }
+  ]
+}

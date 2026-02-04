@@ -1,0 +1,94 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "d4e5f607-4444-4eee-8fff-4567890123de",
+  "meta": {
+    "lastUpdated": "2025-09-16T08:30:00.000000000Z",
+    "profile": [
+      "https://fhir.hl7.org.uk/StructureDefinition/UKCore-ServiceRequest"
+    ],
+    "versionId": "1"
+  },
+  "extension": [
+    {
+      "url": "https://fhir.hl7.org.uk/StructureDefinition/Extension-UKCore-SourceOfServiceRequest",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "2021000124102",
+            "display": "Referred by primary care physician"
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://fhir.nhs.uk/StructureDefinition/Extension-eRS-ServiceRequest-State",
+      "extension": [
+        {
+          "url": "state",
+          "valueCoding": {
+            "system": "https://fhir.nhs.uk/CodeSystem/eRS-ReferralState",
+            "code": "TRIAGED_PROVIDER_TO_ACTION"
+          }
+        }
+      ]
+    }
+  ],
+  "identifier": [
+    {
+      "system": "https://fhir.nhs.uk/Id/UBRN",
+      "value": "444444444444"
+    }
+  ],
+  "basedOn": [
+    {
+      "reference": "CarePlan/9b7c6d5e-4f3a-4b2c-9d1e-999999999999"
+    }
+  ],
+  "status": "active",
+  "intent": "order",
+  "category": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "307",
+        "display": "Diabetology"
+      }
+    ]
+  },
+  "prioity": "routine",
+  "code": {
+    "coding": [
+      {
+        "system": "https://fhir.nhs.uk/STU3/CodeSystem/Specialty-1",
+        "code": "307",
+        "display": "Diabetology"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/c9b2f6a1-5d2c-4a7d-9e6b-8f1a2c3d4e5f"
+  },
+  "authoredOn": "2025-09-15T12:00:00+00:00",
+  "requester": {
+    "reference": "https://api.service.nhs.uk/organisation-data-terminology-api/fhir/Organization/E85719"
+  },
+  "performer": [
+    {
+      "reference": "Organization/aa1bb2cc-3dd4-4ee5-9ff6-101010101010",
+      "display": "NHS Diabetes Trust"
+    },
+    {
+      "reference": "HealthcareService/bb2cc3dd-4ee5-6ff7-8aa9-121212121212",
+      "display": "Diabetes Service"
+    },
+    {
+      "reference": "Practitioner/cc3dd4ee-5ff6-7aa8-9bb0-131313131313"
+    }
+  ],
+  "note": [
+    {
+      "text": "Routine annual review requested."
+    }
+  ]
+}
